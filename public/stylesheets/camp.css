@@ -1,3 +1,4 @@
+/*all campingrounds page's and individual camppground page's foto styling */
 .thumbnail img {
     width: 100%;
 }
@@ -9,4 +10,14 @@
 }
 .deleteForm{
     display: inline;
+}
+
+/*HTML-formstyles*/
+.h1form {
+    text-align:center
+}
+
+.formposition {
+    width:30%; 
+    margin: 30px auto; 
 }

@@ -1,11 +1,13 @@
 <%include ./partials/header.ejs%>
-<h1>Log In</h1>
+<h1 class ="h1form">Log In</h1>
 
-<form action="/login" method=POST>  
-    <input type ="text" placeholder="username" name="username"></input>
-    <input type ="password" placeholder="password" name="password"></input>
-    <input type="submit" value="Login!"></input>
-</form>
+ <div class = "formposition">
+    <form action="/login" method=POST>  
+        <input class="form-control form-group" type ="text" placeholder="username" name="username"></input>
+        <input class="form-control form-group" type ="password" placeholder="password" name="password"></input>
+        <input class="btn btn-primary btn-lg btn-block" type="submit" value="Login!"></input>
+    </form>
+</div>
 
 
 <% include ./partials/footer.ejs%>
