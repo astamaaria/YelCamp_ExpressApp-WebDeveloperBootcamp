@@ -1,8 +1,8 @@
-var mongoose = require("mongoose"),
+let mongoose = require("mongoose"),
     Campground = require("./models/campground"),
     Comment = require("./models/comment");
     
-var data =[
+let data =[
     {
         name: "Riverside Cabin",
         image:"https://images.unsplash.com/photo-1482192505345-5655af888cc4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a14ca13b83f7bce82764a45d13576418&auto=format&fit=crop&w=1400&q=80",
@@ -58,7 +58,7 @@ function seedDB(){
 module.exports = seedDB;
 
 
-// var Comment   = require("./models/comment");
+// let Comment   = require("./models/comment");
 
 
 

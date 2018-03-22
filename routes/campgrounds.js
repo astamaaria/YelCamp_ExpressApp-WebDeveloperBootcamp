@@ -1,20 +1,40 @@
-var express = require("express");
-var router = express.Router();
-var Campground = require("../models/campground");
-var methodOverride = require("method-override");
-var middleware = require("../middleware");
+let express = require("express");
+let router = express.Router();
+let Campground = require("../models/campground");
+let methodOverride = require("method-override");
+let middleware = require("../middleware");
 
 
 
 router.get("/", function (req, res){
-    // get campgrounds from db
-    Campground.find({}, function (err, allCampgrounds){
-        if (err){
-            console.log(err)
-        } else {
-            res.render("campgrounds/index", {campgrounds: allCampgrounds, page: "campgrounds"});
-        }
-    });  
+    // pysäyttää koodin tähän kohtaan, troubleshooting possibilities
+    // eval(require("locus"));
+    let noMatch = null;
+    if(req.query.search){
+        const reqex = new RegExp(escapeRegex(req.query.search), "gi");
+        Campground.find({name: reqex}, function(err, allCampgrounds) {
+            if (err){
+                console.log(err);
+            } else{
+                 
+                if(allCampgrounds.length <1){
+                    noMatch = "No campgrounds matched your query, please try again."
+                }
+                res.render("campgrounds/index", {campgrounds: allCampgrounds, noMatch: noMatch})
+            }
+        })
+        
+    } else {
+        // get campgrounds from db
+        Campground.find({}, function (err, allCampgrounds){
+            if (err){
+                console.log(err)
+            } else {
+                res.render("campgrounds/index", {campgrounds: allCampgrounds, page: "campgrounds", noMatch: noMatch});
+            }
+        });  
+    }
+    
 });
 
 router.get("/new", middleware.isLoggedIn, function(req, res) {
@@ -23,12 +43,12 @@ router.get("/new", middleware.isLoggedIn, function(req, res) {
 
 router.post("/", middleware.isLoggedIn, function (req, res) {
     // get data from the db and add to campgrounds array 
-   var name = req.body.name;
-   var price = req.body.price;
-   var image = req.body.image;
-   var description = req.body.description;
-   var author = {id: req.user._id, username: req.user.username}
-   var newCampGround = {name: name, price: price, image: image, description: description, author: author}
+   let name = req.body.name;
+   let price = req.body.price;
+   let image = req.body.image;
+   let description = req.body.description;
+   let author = {id: req.user._id, username: req.user.username}
+   let newCampGround = {name: name, price: price, image: image, description: description, author: author}
    // create a new campground and save to db
    Campground.create(newCampGround, function (err, newlyCreated){
        if (err){
@@ -84,5 +104,8 @@ router.delete("/:id",middleware.isLoggedIn, middleware.checkCampgroundOwnership,
    }); 
 });
 
+function escapeRegex(text){
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
 
 module.exports = router;

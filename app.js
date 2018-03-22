@@ -1,4 +1,4 @@
-var express = require("express"),
+let express = require("express"),
      app = express (),
      bodyParser = require("body-parser"),
      mongoose = require("mongoose"),
@@ -12,11 +12,11 @@ var express = require("express"),
      methodOverride = require("method-override"), 
      flash = require("connect-flash");
      
-var commentRoutes = require("./routes/comments"),
+let commentRoutes = require("./routes/comments"),
     campgroundRoutes = require("./routes/campgrounds"),
     indexRoutes = require("./routes/index");
     
-var url = process.env.DATABASEURL || "mongodb://localhost/yelp_camp";
+let url = process.env.DATABASEURL || "mongodb://localhost/yelp_camp";
 mongoose.connect(url);
 app.set("view engine", "ejs");
 app.use(express.static(__dirname +"/public"));

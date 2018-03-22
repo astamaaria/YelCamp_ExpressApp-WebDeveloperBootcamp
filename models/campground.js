@@ -1,7 +1,7 @@
-var mongoose = require("mongoose");
+let mongoose = require("mongoose");
 
 // Schema set-up
-var campgroundSchema = new mongoose.Schema({
+let campgroundSchema = new mongoose.Schema({
    name: String,
    price: Number,
    image: String, 
